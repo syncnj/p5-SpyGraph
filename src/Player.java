@@ -15,35 +15,60 @@ public class Player {
     private String name;
     private int budget = 0;
     private int spycams = 0;
-    private GraphNode startnode;
+    private GraphNode currentNode;
+
 
    public Player(String name, int budget, int spycams, GraphNode startnode){
+       if (name == null || startnode == null){
+           throw new IllegalArgumentException();
+       }
 
-
+            this.name=name;
+            this.budget = budget;
+            this.spycams = spycams;
+            this.currentNode = startnode;
 
    }
 
     public void decreaseBudget(int dec){
+            this.budget = this.budget - dec;
 
     }
 
+    /**
+     *
+     * @return true if a spycam is dropped
+     */
     public boolean dropSpycam(){
-        return false;
+        if (this.spycams == 0){
+            System.out.print("Not enough spycams");
+            return false;
+        }
+        else{
+            if (!this.getLocation().getSpycam()){
+                this.getLocation().setSpycam(true);
+                this.spycams--;
+            }
+        }
+
     }
     public int getBudget(){
         return this.budget;
     }
     public GraphNode getLocation(){
+        return currentNode;
 
     }
     public String getLocationName(){
-        return null;
+        return this.currentNode.getNodeName();
     }
     public String getName(){
         return this.name;
     }
     public int getSpycamBack(boolean pickupSpyCam){
-        return -0;
+        if (pickupSpyCam ){
+            this.spycams++;
+        }
     }
     public int getSpycams(){
         return this.spycams;

@@ -12,7 +12,6 @@ public class Player {
      * @param spycams
      * @param startnode
      */
-
     private int budget = 0;
     private GraphNode startnode;
    public Player(String name, int budget, int spycams, GraphNode startnode){

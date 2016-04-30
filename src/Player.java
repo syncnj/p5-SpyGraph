@@ -31,7 +31,7 @@ public class Player {
         return false;
     }
     public int getBudget(){
-        return null;
+        return this.budget;
     }
     public GraphNode getLocation(){
 
@@ -40,18 +40,24 @@ public class Player {
         return null;
     }
     public String getName(){
-        return null;
+        return this.name;
     }
     public int getSpycamBack(boolean pickupSpyCam){
         return -0;
     }
     public int getSpycams(){
-        return 0;
+        return this.spycams;
     }
     public boolean move(String name){
+        if (name == null){
+            throw new IllegalArgumentException("name is null");
+        }
         return false;
     }
     public boolean pickupSpycam(GraphNode node){
+        if (node == null){
+            throw new IllegalArgumentException("node can't be null");
+        }
         return false;
     }
     public void printSpyCamLocations(){

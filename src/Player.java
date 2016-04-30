@@ -5,13 +5,15 @@
 
 public class Player {
     /**
-name - Player's name
-budget - Player budget to spend on moves
-spycams - the number of spy cams the player starts with
-startnode - the node the player starts on
- */
+     *
+     * @param name
+     * @param budget
+     * @param spycams
+     * @param startnode
+     */
 
    public Player(String name, int budget, int spycams, GraphNode startnode){
+
 
 
    }

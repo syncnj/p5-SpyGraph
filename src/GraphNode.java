@@ -7,13 +7,13 @@ import java.util.List;
 public class GraphNode implements Comparable<GraphNode>{
     private final static int NOT_NEIGHBOR = Integer.MAX_VALUE;
     private String name;
-    private List<Neighbor> neighborList;
+    private List<Neighbor> neighborList = new ArrayList<>();
     private Boolean hasSpycam = false;
 
 
     /**
      * Represents a valid location in the game graph.
-     * @param name
+     * @param name  The label that uniquely identifies this graph node.
      */
     public GraphNode(String name){
             this.name = name;
@@ -23,15 +23,18 @@ public class GraphNode implements Comparable<GraphNode>{
 
  /**
      * Return the name of this GraphNode.
-     * @return
-     */
+     * @return name of node
+  */
 
     public String getNodeName(){
         return this.name;
     }
+
+
+
     /**
-     * Returns a list of the neighbors of this GraphNode instance.
-     * @return
+     * Returns a list of the neighbors of this GraphNode instance. This instance of GraphNode is not included as it is not a neighbor of itself.
+     * @return a list of neighbors of this GraphNode.
      */
     public List<Neighbor> getNeighbors(){
         return this.neighborList;
@@ -39,8 +42,8 @@ public class GraphNode implements Comparable<GraphNode>{
 
     /**
      * Returns true if this node name is a neighbor of current node.
-     * @param neighborName
-     * @return
+     * @param neighborName to look for
+     * @return true if the node is an adjacent neighbor.
      */
     public boolean	isNeighbor(String neighborName){
         if (neighborName == null){
@@ -60,8 +63,8 @@ public class GraphNode implements Comparable<GraphNode>{
 
     /**
      * Maintains sorted order of neighbors by neighbor name.
-     * @param neighbor
-     * @param cost
+     * @param neighbor An adjacent node (a neighbor)
+     * @param cost The cost to move to that node (from this node)
      */
     public void addNeighbor(GraphNode neighbor, int cost){
         if (neighbor== null || cost <0){
@@ -76,7 +79,7 @@ public class GraphNode implements Comparable<GraphNode>{
 
     /**
      * Returns an iterator that can be used to find neighbors of this GraphNode.
-     * @return
+     * @return An iterator of String node labels
      */
 
     public Iterator<String>	getNeighborNames(){

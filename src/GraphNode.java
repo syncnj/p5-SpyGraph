@@ -81,6 +81,7 @@ public class GraphNode {
      */
 
     public String getNodeName(){
+        return this.name;
 
     }
 

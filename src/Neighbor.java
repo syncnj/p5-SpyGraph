@@ -22,8 +22,17 @@ public class Neighbor {
      * @return
      */
     public int compareTo(Neighbor otherNode){
+        int result = this.neighbor.getNodeName().compareTo(otherNode.)
+        if (result > 0 ){
+            return 1;
+        }
+        else if (result < 0 ){
+            return -1;
 
-
+        }
+        else {
+            return 0;
+        }
     }
 
     /**
@@ -31,7 +40,7 @@ public class Neighbor {
      * @return Returns the cost of travelling this edge to get to the Neighbor at the other end of this edge.
      */
     public int getCost(){
-
+        return this.cost;
     }
 
     /**
@@ -39,6 +48,7 @@ public class Neighbor {
      * @return  Returns the Neighbor (node) that is at the other end of "this" node's edge.
      */
     public GraphNode getNeighborNode(){
+        return neighbor;
 
     }
 
@@ -47,6 +57,7 @@ public class Neighbor {
      * @return Returns a String representation of this Neighbor.
      */
     public String toString(){
+        return "--" + this.cost + "--> "+ this.getNeighborNode().getNodeName();
 
     }
 }

@@ -42,6 +42,7 @@ public class SpyGraph implements Iterable<GraphNode> {
         }
         GraphNode newNode = new GraphNode(name);
         vlist.add(newNode);
+        Collections.sort(vlist);
     }
 
     /**
@@ -132,7 +133,7 @@ public class SpyGraph implements Iterable<GraphNode> {
 
 
 
-        returnList.add();
+        //returnList.add();
 
 
         return returnList;

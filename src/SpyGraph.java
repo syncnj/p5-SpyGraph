@@ -77,6 +77,9 @@ public class SpyGraph implements Iterable<GraphNode> {
             }
         }
 
+        if (v1Node== null || v2Node == null){
+            throw new IllegalArgumentException("At least one name is not found");
+        }
         v1Node.addNeighbor(v2Node, cost);
         v2Node.addNeighbor(v1Node, cost);
 
@@ -106,7 +109,7 @@ public class SpyGraph implements Iterable<GraphNode> {
         }
         List<Neighbor> returnList = new ArrayList<>();
         Queue<Neighbor> queue = new LinkedList<>();
-        List
+
 
         Iterator<GraphNode> itr = this.iterator();
         Boolean foundStart= false;

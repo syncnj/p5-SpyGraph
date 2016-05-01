@@ -2,7 +2,7 @@
  * Created by David on 4/30/16.
  */
 public class GraphNode implements Comparable<GraphNode>{
-    public static int NOT_NEIGHBOR;
+    public final static int NOT_NEIGHBOR = Integer.MAX_VALUE;
     private String name;
 
     /**

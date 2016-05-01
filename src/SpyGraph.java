@@ -100,11 +100,40 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @return The BFS traversal from start to end node.
      */
     public List<Neighbor> BFS( String start, String end ) {
-         // TODO implement this method
-         // may need and create a companion method
+        // TODO implement this method
+        // may need and create a companion method
+        if (start == null || end == null) {
+            throw new IllegalArgumentException("Null input");
+        }
+        List<Neighbor> returnList = new ArrayList<>();
+        Queue<Neighbor> queue = new LinkedList<>();
+        List
 
-        return null;
+        Iterator<GraphNode> itr = this.iterator();
+        Boolean foundStart= false;
+        Boolean foundEnd = false;
+        GraphNode startNode= null;
+        GraphNode endNode = null;
+        while(itr.hasNext() && (!foundStart || !foundEnd)){
+            GraphNode itrNode  = itr.next();
+            String itrName = itrNode.getNodeName();
+            if (itrName.equals(start)){
+                startNode = itrNode;
+                foundStart = true;
+            }
+            if (itrName.equals(end)){
+                endNode = itrNode;
+                foundEnd = true;
 
+            }
+        }
+
+
+
+        returnList.add();
+
+
+        return returnList;
     }
 
 

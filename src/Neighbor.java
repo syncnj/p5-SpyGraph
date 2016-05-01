@@ -1,7 +1,9 @@
 /**
  * Created by yblur on 4/28/2016.
  */
-public class Neighbor {
+public class Neighbor implements Comparable<Neighbor>{
+
+
     private int cost;
     private GraphNode neighbor;
 

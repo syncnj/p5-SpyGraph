@@ -20,8 +20,8 @@ public class Neighbor implements Comparable<Neighbor>{
 
     /**
      * Compares the node names of this node and the otherNode.
-     * @param otherNode
-     * @return
+     * @param otherNode neighbor to be compared
+     * @return compareTo the node names of two neighbors
      */
     public int compareTo(Neighbor otherNode){
         int result = this.neighbor.getNodeName().compareTo(otherNode.getNeighborNode().getNodeName());

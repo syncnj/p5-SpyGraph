@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -7,9 +9,10 @@ import java.util.List;
  * Created by David on 4/30/16.
  */
 public class GraphNode implements Comparable<GraphNode>{
-    public final static int NOT_NEIGHBOR = Integer.MAX_VALUE;
+    private final static int NOT_NEIGHBOR = Integer.MAX_VALUE;
     private String name;
     private List<Neighbor> neighborList;
+    private Boolean hasSpycam = false;
 
 
     /**
@@ -44,6 +47,10 @@ public class GraphNode implements Comparable<GraphNode>{
      * @return
      */
     public boolean	isNeighbor(String neighborName){
+        if (neighborName == null){
+            throw new IllegalArgumentException();
+        }
+
         Iterator<Neighbor> itr = this.neighborList.iterator();
 
         while (itr.hasNext()) {
@@ -61,6 +68,9 @@ public class GraphNode implements Comparable<GraphNode>{
      * @param cost
      */
     public void addNeighbor(GraphNode neighbor, int cost){
+        if (neighbor== null || cost <0){
+            throw new IllegalArgumentException();
+        }
         Neighbor newNeighbor = new Neighbor(cost, neighbor);
         this.neighborList.add(newNeighbor);
         Collections.sort(this.neighborList);
@@ -84,12 +94,35 @@ public class GraphNode implements Comparable<GraphNode>{
     }
 
     /**
-     true if the GraphNode has a spycam
-     * @return
+     * @return  true if the GraphNode has a spycam
      */
-    public boolean	getSpycam(){
+    public boolean getSpycam(){
+        return this.hasSpycam;
+    }
+
+    /**
+     *
+     * @param cam indicates whether the node now has a spycam
+     */
+
+    public void	setSpycam(boolean cam){
+        this.hasSpycam = cam;
+    }
+
+    /**
+     *
+     * @param neighborName name of potential neighbor
+     * @return cost to neighborName
+     * @throws NotNeighborException - if neighborName is not a neighbor
+     */
+    public int	getCostTo(String neighborName) throws NotNeighborException {
+        if (neighborName == null){
+            throw new IllegalArgumentException();
+        }
 
     }
+
+
 
 
 
@@ -123,15 +156,6 @@ public class GraphNode implements Comparable<GraphNode>{
 
     }
 
-    /**
-     *
-     * @param neighborName
-     * @return
-     */
-
-    public int	getCostTo(java.lang.String neighborName){
-
-    }
 
 
 
@@ -152,14 +176,7 @@ public class GraphNode implements Comparable<GraphNode>{
 
     }
 
-    /**
-     *
-     * @param cam
-     */
 
-    public void	setSpycam(boolean cam){
-
-    }
 
     public String	toString(){
 

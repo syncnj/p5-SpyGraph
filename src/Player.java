@@ -1,42 +1,43 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by yblur on 4/28/2016.
- */
+
 
 
 public class Player {
 
-    /**
-     *
-     * @param name
-     * @param budget
-     * @param spycams
-     * @param startnode
-     */
+
     private String name;
     private int budget = 0;
     private int spycams = 0;
     private GraphNode currentNode;
-    private List<GraphNode> spyCamDrop ;
+    private List<GraphNode> spyCamDrop = new ArrayList<>();
 
 
    public Player(String name, int budget, int spycams, GraphNode startnode){
-       if (name == null || startnode == null){
+       if (name == null || startnode == null || budget <0 || spycams <0){
            throw new IllegalArgumentException();
        }
 
-            this.name=name;
-            this.budget = budget;
-            this.spycams = spycams;
-            this.currentNode = startnode;
+       this.name=name;
+       this.budget = budget;
+       this.spycams = spycams;
+       this.currentNode = startnode;
 
    }
 
-    public void decreaseBudget(int dec){
-            this.budget = this.budget - dec;
 
+    public String getName(){
+        return this.name;
+    }
+
+    public int getBudget(){
+        return this.budget;
+    }
+
+    public void decreaseBudget(int dec){
+            this.budget -= dec;
     }
 
     /**
@@ -60,20 +61,55 @@ public class Player {
         }
 
     }
-    public int getBudget(){
-        return this.budget;
-    }
-    public GraphNode getLocation(){
-        return currentNode;
 
+    public boolean pickupSpycam(GraphNode node){
+        if (node == null){
+            throw new IllegalArgumentException("node can't be null");
+        }
+        if (node.getSpycam()){
+            node.setSpycam(false);
+            spyCamDrop.remove(node);
+            return true;
+
+            // !!!!!!!!!!!
+        }
+        return false;
     }
+
+    public int getSpycams(){
+        return this.spycams;
+    }
+
+    public boolean move(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("name is null");
+        }
+        if (this.currentNode.isNeighbor(name)) {
+            for (Neighbor neighbor : this.currentNode.getNeighbors()) {
+                if (neighbor.getNeighborNode().equals(name)) {
+                    if (this.budget - neighbor.getCost() >= 1) {
+                        if (this.budget - neighbor.getCost() != 1) {
+                            this.budget -= neighbor.getCost();
+                        }
+
+                        this.currentNode = neighbor.getNeighborNode();
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public String getLocationName(){
         return this.currentNode.getNodeName();
     }
-    public String getName(){
-        return this.name;
-    }
 
+
+    public GraphNode getLocation(){
+        return this.currentNode;
+
+    }
 
     public void getSpycamBack(boolean pickupSpyCam){
         if (pickupSpyCam ){
@@ -81,40 +117,15 @@ public class Player {
         }
     }
 
-    public int getSpycams(){
-        return this.spycams;
-    }
-    public boolean move(String name){
-        if (name == null){
-            throw new IllegalArgumentException("name is null");
-        }
-        return false;
-    }
-    public boolean pickupSpycam(GraphNode node){
-        if (node == null){
-            throw new IllegalArgumentException("node can't be null");
-        }
-        return false;
-    }
 
-    /**
-     *
-     * @return spycam list's iterator
-     */
-    public Iterator<GraphNode> iteratorspyCam() {
 
-        return spyCamDrop.iterator();
-    }
+
+
     public void printSpyCamLocations(){
-        while(iteratorspyCam().hasNext()){
-            System.out.print(iteratorspyCam().next());
+        for (GraphNode currentNode: this.spyCamDrop){
+            System.out.println (currentNode.getNodeName());
         }
-
     }
-
-
-
-
 
 
 }

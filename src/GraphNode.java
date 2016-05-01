@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -119,67 +117,67 @@ public class GraphNode implements Comparable<GraphNode>{
         if (neighborName == null){
             throw new IllegalArgumentException();
         }
+        for (Neighbor neighbor:this.neighborList){
+            if (neighbor.getNeighborNode().getNodeName().equals(neighborName)){
+                return neighbor.getCost();
+            }
+        }
+        throw new NotNeighborException();
 
     }
 
-
-
-
-
-
-
-
-
     /**
-     * @param name
-     * @return
+     * @param name name of potential neighbor
+     * @return the GraphNode associated with name that is a neighbor of the current node
+     * @throws NotNeighborException - if name is not a neighbor of the GraphNode
      */
-    public GraphNode getNeighbor(String name){
+    public GraphNode getNeighbor(String name) throws NotNeighborException {
+        if (name == null){
+            throw new IllegalArgumentException();
+        }
+        for (Neighbor neighbor:this.neighborList){
+            if (neighbor.getNeighborNode().getNodeName().equals(name)){
+                return neighbor.getNeighborNode();
+            }
+        }
+        throw new NotNeighborException();
 
-    }
-
-
-
-    /**
-     * Return the results of comparing this node's name to the other node's name.
-     * @param otherNode
-     * @return
-     */
-    public int	compareTo(GraphNode otherNode){
-        return 0;
     }
 
     /**
      * Prints a list of neighbors of this GraphNode and the cost of the edge to them
      */
     public void	displayCostToEachNeighbor(){
+        for (Neighbor neighbor: this.neighborList){
+            System.out.println(neighbor.getCost() + " " + neighbor.getNeighborNode().getNodeName());
+        }
+    }
 
+    /**
+     * Return the results of comparing this node's name to the other node's name.
+     * @param otherNode Another node to compare names with this node.
+     * @return the result of compareTo on the node names only.
+     */
+    public int	compareTo(GraphNode otherNode){
+        return this.getNodeName().compareTo(otherNode.getNodeName());
     }
 
 
+    /**
+     * @return name of node
+     */
 
-
-
-
-
-
-
-
-
-
+    public String toString(){
+        return this.getNodeName();
+    }
 
     /**
      *  Display's the node name followed by a list of neighbors to this node.
      */
 
     public void	printNeighborNames(){
-
+        this.displayCostToEachNeighbor();
     }
 
-
-
-    public String	toString(){
-
-    }
 
 }

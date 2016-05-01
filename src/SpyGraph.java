@@ -108,10 +108,9 @@ public class SpyGraph implements Iterable<GraphNode> {
         if (start == null || end == null) {
             throw new IllegalArgumentException("Null input");
         }
-        List<Neighbor> returnList = new ArrayList<>();
-        Queue<Neighbor> queue = new LinkedList<>();
-
-
+        //List<Neighbor> returnList = new ArrayList<>();
+        //Queue<Neighbor> queue = new LinkedList<>();
+        List<GraphNode> visitedList = new ArrayList<>();
         Iterator<GraphNode> itr = this.iterator();
         Boolean foundStart= false;
         Boolean foundEnd = false;
@@ -127,17 +126,12 @@ public class SpyGraph implements Iterable<GraphNode> {
             if (itrName.equals(end)){
                 endNode = itrNode;
                 foundEnd = true;
-
             }
         }
-
-
-
-        //returnList.add();
-
-
-        return returnList;
+        return null;
     }
+
+
 
 
     /**
@@ -160,11 +154,66 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @return The DFS traversal from start to end node.
      */
     public List<Neighbor> DFS(String start, String end) {
-         // TODO implement this method
-         // may need and create a companion method
+        // TODO implement this method
+        // may need and create a companion method
+        if (start == null || end == null) {
+            throw new IllegalArgumentException("Null input");
+        }
+        //List<Neighbor> returnList = new ArrayList<>();
+        //Queue<Neighbor> queue = new LinkedList<>();
+        List<GraphNode> visitedList = new ArrayList<>();
 
+/*        Iterator<GraphNode> itr = this.iterator();
+        Boolean foundStart= false;
+        Boolean foundEnd = false;
+
+        while(itr.hasNext() && (!foundStart || !foundEnd)){
+            GraphNode itrNode  = itr.next();
+            String itrName = itrNode.getNodeName();
+            if (itrName.equals(start)){
+                startNode = itrNode;
+                foundStart = true;
+            }
+            if (itrName.equals(end)){
+                endNode = itrNode;
+                foundEnd = true;
+            }
+        }*/
+        GraphNode startNode= this.getNodeFromName(start);
+        GraphNode endNode = this.getNodeFromName(end);
+
+        if (startNode== null || endNode==null){
+            throw new IllegalArgumentException("start / end node couldn't be found");
+        }
+        visitedList.add(startNode);
+        List<Neighbor> prevList = new LinkedList<>();
+        return DFSHelper(prevList, visitedList, startNode, endNode);
+
+    }
+
+    private List<Neighbor> DFSHelper (List<Neighbor> prevList, List<GraphNode> visitedList,
+                                      GraphNode currNode, GraphNode endNode ){
+        for(Neighbor neighbor: currNode.getNeighbors() ){
+            if (neighbor.getNeighborNode().equals(endNode)){
+                prevList.add(neighbor);
+                return prevList;
+            }
+            if (!visitedList.contains(neighbor.getNeighborNode())){
+                visitedList.add(neighbor.getNeighborNode());
+                List<Neighbor> newList = new LinkedList<>(prevList);
+                //Might produce error here
+                newList.add(neighbor);
+                List<Neighbor> returnList = DFSHelper(newList, visitedList, neighbor.getNeighborNode(), endNode);
+                return returnList;
+
+
+
+            }
+        }
         return null;
     }
+
+
 
     /**
      * OPTIONAL: Students are not required to implement Dijkstra's ALGORITHM

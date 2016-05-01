@@ -3,9 +3,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by David on 4/30/16.
- */
+
 public class GraphNode implements Comparable<GraphNode>{
     private final static int NOT_NEIGHBOR = Integer.MAX_VALUE;
     private String name;

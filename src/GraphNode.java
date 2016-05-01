@@ -3,13 +3,14 @@
  */
 public class GraphNode {
     public static int NOT_NEIGHBOR;
+    private String name;
 
     /**
      * Represents a valid location in the game graph.
      * @param name
      */
     public GraphNode(String name){
-
+            this.name = name;
     }
 
     /**
@@ -18,6 +19,7 @@ public class GraphNode {
      * @param cost
      */
     public void addNeighbor(GraphNode neighbor, int cost){
+
 
     }
 

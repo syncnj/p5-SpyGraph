@@ -1,3 +1,6 @@
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Created by yblur on 4/28/2016.
  */
@@ -16,6 +19,7 @@ public class Player {
     private int budget = 0;
     private int spycams = 0;
     private GraphNode currentNode;
+    private List<GraphNode> spyCamDrop ;
 
 
    public Player(String name, int budget, int spycams, GraphNode startnode){
@@ -48,6 +52,8 @@ public class Player {
             if (!this.getLocation().getSpycam()){
                 this.getLocation().setSpycam(true);
                 this.spycams--;
+                spyCamDrop.add(this.getLocation());
+
             }
         }
 
@@ -85,7 +91,19 @@ public class Player {
         }
         return false;
     }
+
+    /**
+     *
+     * @return spycam list's iterator
+     */
+    public Iterator<GraphNode> iteratorspyCam() {
+
+        return spyCamDrop.iterator();
+    }
     public void printSpyCamLocations(){
+        while(iteratorspyCam().hasNext()){
+            System.out.print(iteratorspyCam().next());
+        }
 
     }
 

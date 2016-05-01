@@ -22,7 +22,7 @@ public class Neighbor {
      * @return
      */
     public int compareTo(Neighbor otherNode){
-        int result = this.neighbor.getNodeName().compareTo(otherNode.)
+        int result = this.neighbor.getNodeName().compareTo(otherNode.getNeighborNode().getNodeName());
         if (result > 0 ){
             return 1;
         }
@@ -48,7 +48,7 @@ public class Neighbor {
      * @return  Returns the Neighbor (node) that is at the other end of "this" node's edge.
      */
     public GraphNode getNeighborNode(){
-        return neighbor;
+        return this.neighbor;
 
     }
 

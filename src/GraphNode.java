@@ -1,7 +1,7 @@
 /**
  * Created by David on 4/30/16.
  */
-public class GraphNode {
+public class GraphNode implements Comparable<GraphNode>{
     public static int NOT_NEIGHBOR;
     private String name;
 

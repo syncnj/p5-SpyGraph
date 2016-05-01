@@ -1,4 +1,7 @@
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.*;
 /**
  * Stores all vertexes as a list of GraphNodes.  Provides necessary graph operations as
@@ -17,7 +20,8 @@ public class SpyGraph implements Iterable<GraphNode> {
      * Initializes an empty list of GraphNode objects
      */
     public SpyGraph(){
-         // TODO initialize data member(s)
+        // TODO initialize data member(s)
+        vlist = new ArrayList<>();
     }
 
     /**
@@ -26,7 +30,19 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @param name The name of the new GraphNode to create and add to the list.
      */
     public void addGraphNode(String name){
-         // TODO implement this method
+        // TODO implement this method
+        if (name == null){
+            throw new IllegalArgumentException("name is null");
+        }
+        Iterator<GraphNode> itr = this.iterator();
+        while (itr.hasNext()){
+            String itrName = itr.next().getNodeName();
+            if (name.equals(itrName)){
+                throw new IllegalArgumentException("duplicate node name is not allowed");
+            }
+        }
+        GraphNode newNode = new GraphNode(name);
+        vlist.add(newNode);
     }
 
     /**
@@ -39,7 +55,33 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @throws IllegalArgumentException if the names are the same
      */
     public void addEdge(String v1name, String v2name, int cost) throws IllegalArgumentException{
-         // TODO implement this method
+        // TODO implement this method
+        if (v1name==null || v2name== null || v1name.equals(v2name)){
+            throw new IllegalArgumentException();
+        }
+        Iterator<GraphNode> itr = this.iterator();
+        Boolean foundV1 = false;
+        Boolean foundV2 = false;
+        GraphNode v1Node = null;
+        GraphNode v2Node = null;
+        while(itr.hasNext() && (!foundV1 || !foundV2)){
+            GraphNode itrNode  = itr.next();
+            String itrName = itrNode.getNodeName();
+            if (itrName.equals(v1name)){
+                v1Node = itrNode;
+                foundV1 = true;
+            }
+            if (itrName.equals(v2name)){
+                v2Node = itrNode;
+                foundV2 = true;
+
+            }
+        }
+
+        v1Node.addNeighbor(v2Node, cost);
+        v2Node.addNeighbor(v1Node, cost);
+
+
     }
 
     /**

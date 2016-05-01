@@ -53,8 +53,10 @@ public class Player {
                 this.getLocation().setSpycam(true);
                 this.spycams--;
                 spyCamDrop.add(this.getLocation());
+                return true;
 
             }
+            return false;
         }
 
     }
@@ -71,11 +73,14 @@ public class Player {
     public String getName(){
         return this.name;
     }
-    public int getSpycamBack(boolean pickupSpyCam){
+
+
+    public void getSpycamBack(boolean pickupSpyCam){
         if (pickupSpyCam ){
             this.spycams++;
         }
     }
+
     public int getSpycams(){
         return this.spycams;
     }

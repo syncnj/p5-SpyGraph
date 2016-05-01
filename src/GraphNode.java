@@ -1,9 +1,16 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Created by David on 4/30/16.
  */
 public class GraphNode implements Comparable<GraphNode>{
     public final static int NOT_NEIGHBOR = Integer.MAX_VALUE;
     private String name;
+    private List<Neighbor> neighborList;
+
 
     /**
      * Represents a valid location in the game graph.
@@ -13,15 +20,92 @@ public class GraphNode implements Comparable<GraphNode>{
             this.name = name;
     }
 
+
+
+ /**
+     * Return the name of this GraphNode.
+     * @return
+     */
+
+    public String getNodeName(){
+        return this.name;
+    }
+    /**
+     * Returns a list of the neighbors of this GraphNode instance.
+     * @return
+     */
+    public List<Neighbor> getNeighbors(){
+        return this.neighborList;
+    }
+
+    /**
+     * Returns true if this node name is a neighbor of current node.
+     * @param neighborName
+     * @return
+     */
+    public boolean	isNeighbor(String neighborName){
+        Iterator<Neighbor> itr = this.neighborList.iterator();
+
+        while (itr.hasNext()) {
+            String itrName = itr.next().getNeighborNode().getNodeName();
+            if (neighborName.equals(itrName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Maintains sorted order of neighbors by neighbor name.
      * @param neighbor
      * @param cost
      */
     public void addNeighbor(GraphNode neighbor, int cost){
+        Neighbor newNeighbor = new Neighbor(cost, neighbor);
+        this.neighborList.add(newNeighbor);
+        Collections.sort(this.neighborList);
 
+        //Not sure if this is the correct way to sort!
+    }
+
+    /**
+     * Returns an iterator that can be used to find neighbors of this GraphNode.
+     * @return
+     */
+
+    public Iterator<String>	getNeighborNames(){
+        List <String> neighborNameList = new ArrayList<>();
+        Iterator<Neighbor> itr = this.neighborList.iterator();
+        while (itr.hasNext()){
+            neighborNameList.add(itr.next().getNeighborNode().getNodeName());
+        }
+
+        return neighborNameList.iterator();
+    }
+
+    /**
+     true if the GraphNode has a spycam
+     * @return
+     */
+    public boolean	getSpycam(){
 
     }
+
+
+
+
+
+
+
+    /**
+     * @param name
+     * @return
+     */
+    public GraphNode getNeighbor(String name){
+
+    }
+
+
 
     /**
      * Return the results of comparing this node's name to the other node's name.
@@ -49,54 +133,16 @@ public class GraphNode implements Comparable<GraphNode>{
 
     }
 
-    /**
-     *
-     * @param name
-     * @return
-     */
-    public GraphNode getNeighbor(String name){
 
-    }
 
-    /**
-     * Returns an iterator that can be used to find neighbors of this GraphNode.
-     * @return
-     */
 
-    public Iterator<String>	getNeighborNames(){
 
-    }
 
-    /**
-     * Returns a list of the neighbors of this GraphNode instance.
-     * @return
-     */
-    public List<Neighbor>	getNeighbors(){
 
-    }
 
-    /**
-     * Return the name of this GraphNode.
-     * @return
-     */
 
-    public String getNodeName(){
-        return this.name;
 
-    }
 
-    public boolean	getSpycam(){
-
-    }
-
-    /**
-     * Returns true if this node name is a neighbor of current node.
-     * @param neighborName
-     * @return
-     */
-    public boolean	isNeighbor(String neighborName){
-        return false;
-    }
 
     /**
      *  Display's the node name followed by a list of neighbors to this node.

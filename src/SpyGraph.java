@@ -1,6 +1,8 @@
 
 
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+
 import java.util.*;
 /**
  * Stores all vertexes as a list of GraphNodes.  Provides necessary graph operations as
@@ -109,7 +111,7 @@ public class SpyGraph implements Iterable<GraphNode> {
             throw new IllegalArgumentException("Null input");
         }
         //List<Neighbor> returnList = new ArrayList<>();
-        Queue<Neighbor> queue = new LinkedList<>();
+        Queue<GraphNode> queue = new LinkedList<>();
         List<GraphNode> visitedList = new ArrayList<>();
 
 
@@ -120,32 +122,39 @@ public class SpyGraph implements Iterable<GraphNode> {
             throw new IllegalArgumentException("start / end node couldn't be found");
         }
         List<Neighbor> prevList = new ArrayList<>();
-        //return BFSHelper(prevList, visitedList, startNode, endNode);
+        visitedList.add(startNode);
+        queue.add(startNode);
+        return BFSHelper(prevList, queue, visitedList,  endNode);
     }
 
     private List<Neighbor> BFSHelper (List<Neighbor> prevList, Queue<GraphNode> queue,List<GraphNode> visitedList,
-                                      GraphNode currNode, GraphNode endNode ){
-
-
-        for(Neighbor neighbor: currNode.getNeighbors() ){
-            if (neighbor.getNeighborNode().equals(endNode)){
+                                      GraphNode endNode ){
+        if (queue.isEmpty()){
+            return null;
+        }
+        GraphNode current = queue.remove();
+        for(Neighbor neighbor: current.getNeighbors()){
+            GraphNode newNode = neighbor.getNeighborNode();
+            if (newNode.equals(endNode)){
                 prevList.add(neighbor);
                 return prevList;
             }
-            if (!visitedList.contains(neighbor.getNeighborNode())){
-                visitedList.add(neighbor.getNeighborNode());
-
-                List<Neighbor> newList = new ArrayList<>(prevList);
-
-                //Might produce error here
-                newList.add(neighbor);
-                List<Neighbor> returnList = DFSHelper(newList, visitedList, neighbor.getNeighborNode(), endNode);
-                if (returnList!=null){
-                    return returnList;
+            else {
+                if(!visitedList.contains(newNode)){
+                    visitedList.add(newNode);
+                    List<Neighbor> newList = new ArrayList<>(prevList);
+                    newList.add(neighbor);
+                    queue.add(newNode);
+                    List<Neighbor> resultList = BFSHelper(newList,queue,visitedList,endNode);
+                    if (resultList!=null){
+                        return resultList;
+                    }
                 }
             }
         }
         return null;
+
+
 
     }
 

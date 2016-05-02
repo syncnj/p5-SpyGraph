@@ -186,7 +186,7 @@ public class SpyGraph implements Iterable<GraphNode> {
             throw new IllegalArgumentException("start / end node couldn't be found");
         }
         visitedList.add(startNode);
-        List<Neighbor> prevList = new LinkedList<>();
+        List<Neighbor> prevList = new ArrayList<>();
         return DFSHelper(prevList, visitedList, startNode, endNode);
 
     }
@@ -200,15 +200,21 @@ public class SpyGraph implements Iterable<GraphNode> {
             }
             if (!visitedList.contains(neighbor.getNeighborNode())){
                 visitedList.add(neighbor.getNeighborNode());
-                List<Neighbor> newList = new LinkedList<>(prevList);
+
+                List<Neighbor> newList = new ArrayList<>(prevList);
+
                 //Might produce error here
                 newList.add(neighbor);
                 List<Neighbor> returnList = DFSHelper(newList, visitedList, neighbor.getNeighborNode(), endNode);
-                return returnList;
+                if (returnList!=null){
+                    return returnList;
+                }
+
 
 
 
             }
+            //return null;
         }
         return null;
     }

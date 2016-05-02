@@ -111,7 +111,8 @@ public class SpyGraph implements Iterable<GraphNode> {
             throw new IllegalArgumentException("Null input");
         }
         //List<Neighbor> returnList = new ArrayList<>();
-        Queue<GraphNode> queue = new LinkedList<>();
+        Queue<GraphNode> nodeQueue = new LinkedList<>();
+        Queue<List> neighborQueue = new LinkedList<>();
         List<GraphNode> visitedList = new ArrayList<>();
 
 
@@ -123,16 +124,19 @@ public class SpyGraph implements Iterable<GraphNode> {
         }
         List<Neighbor> prevList = new ArrayList<>();
         visitedList.add(startNode);
-        queue.add(startNode);
-        return BFSHelper(prevList, queue, visitedList,  endNode);
-    }
+        nodeQueue.add(startNode);
+        neighborQueue.add(new ArrayList<Neighbor>());
+       return BFSHelper(prevList, nodeQueue, neighborQueue,  visitedList,  endNode);
+   }
 
-    private List<Neighbor> BFSHelper (List<Neighbor> prevList, Queue<GraphNode> queue,List<GraphNode> visitedList,
+    private List<Neighbor> BFSHelper (List<Neighbor> prevList, Queue<GraphNode> nodeQueue,Queue<List> neighborQueue,
+                                      List<GraphNode> visitedList,
                                       GraphNode endNode ){
-        if (queue.isEmpty()){
+        if (nodeQueue.isEmpty()){
             return null;
         }
-        GraphNode current = queue.remove();
+        GraphNode current = nodeQueue.remove();
+        //List<Neighbor> prevNeighborList = neighborQueue.remove();
         for(Neighbor neighbor: current.getNeighbors()){
             GraphNode newNode = neighbor.getNeighborNode();
             if (newNode.equals(endNode)){
@@ -144,13 +148,19 @@ public class SpyGraph implements Iterable<GraphNode> {
                     visitedList.add(newNode);
                     List<Neighbor> newList = new ArrayList<>(prevList);
                     newList.add(neighbor);
-                    queue.add(newNode);
-                    List<Neighbor> resultList = BFSHelper(newList,queue,visitedList,endNode);
+                    nodeQueue.add(newNode);
+                    neighborQueue.add(newList);
+                /*    List<Neighbor> resultList = BFSHelper(newList,queue,visitedList,endNode);
                     if (resultList!=null){
                         return resultList;
-                    }
+                    }*/
                 }
             }
+        }
+        List<Neighbor> prevNeighborList = neighborQueue.remove();
+        List<Neighbor> resultList = BFSHelper(prevNeighborList,nodeQueue,neighborQueue, visitedList,endNode);
+        if (resultList!=null){
+            return resultList;
         }
         return null;
 

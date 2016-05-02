@@ -53,8 +53,8 @@ public class Player {
                 this.getLocation().setSpycam(true);
                 this.spycams--;
                 spyCamDrop.add(this.getLocation());
+                System.out.print("Dropped a Spy Cam at " + this.getLocationName()+"\n");
                 return true;
-
             }
             return false;
         }
@@ -85,17 +85,24 @@ public class Player {
         }
         if (this.currentNode.isNeighbor(name)) {
             for (Neighbor neighbor : this.currentNode.getNeighbors()) {
-                if (neighbor.getNeighborNode().equals(name)) {
+                if (neighbor.getNeighborNode().getNodeName().equals(name)) {
                     if (this.budget - neighbor.getCost() >= 1) {
-                        if (this.budget - neighbor.getCost() != 1) {
+                        if (neighbor.getCost() > 1) {
                             this.budget -= neighbor.getCost();
                         }
 
                         this.currentNode = neighbor.getNeighborNode();
                         return true;
                     }
+                    System.out.print("Not enough money cost is "+ neighbor.getCost() +  " budget is "+ this.budget+ "\n");
                 }
+
             }
+
+
+        }
+        else{
+            System.out.println(name + " is not a neighbor of your current location");
         }
         return false;
     }
@@ -122,7 +129,7 @@ public class Player {
 
     public void printSpyCamLocations(){
         for (GraphNode currentNode: this.spyCamDrop){
-            System.out.println (currentNode.getNodeName());
+            System.out.println ("Spy cam at "+ currentNode.getNodeName());
         }
     }
 

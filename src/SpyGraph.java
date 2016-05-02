@@ -259,8 +259,7 @@ public class SpyGraph implements Iterable<GraphNode> {
 
         // TODO: implement Dijkstra's shortest path algorithm
         // may need and create a companion method
-        
-        return null;
+        return this.BFS(start,end);
     }
 
 

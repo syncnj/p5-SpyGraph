@@ -109,29 +109,45 @@ public class SpyGraph implements Iterable<GraphNode> {
             throw new IllegalArgumentException("Null input");
         }
         //List<Neighbor> returnList = new ArrayList<>();
-        //Queue<Neighbor> queue = new LinkedList<>();
+        Queue<Neighbor> queue = new LinkedList<>();
         List<GraphNode> visitedList = new ArrayList<>();
-        Iterator<GraphNode> itr = this.iterator();
-        Boolean foundStart= false;
-        Boolean foundEnd = false;
-        GraphNode startNode= null;
-        GraphNode endNode = null;
-        while(itr.hasNext() && (!foundStart || !foundEnd)){
-            GraphNode itrNode  = itr.next();
-            String itrName = itrNode.getNodeName();
-            if (itrName.equals(start)){
-                startNode = itrNode;
-                foundStart = true;
+
+
+        GraphNode startNode= this.getNodeFromName(start);
+        GraphNode endNode = this.getNodeFromName(end);
+
+        if (startNode== null || endNode==null){
+            throw new IllegalArgumentException("start / end node couldn't be found");
+        }
+        List<Neighbor> prevList = new ArrayList<>();
+        //return BFSHelper(prevList, visitedList, startNode, endNode);
+    }
+
+    private List<Neighbor> BFSHelper (List<Neighbor> prevList, Queue<GraphNode> queue,List<GraphNode> visitedList,
+                                      GraphNode currNode, GraphNode endNode ){
+
+
+        for(Neighbor neighbor: currNode.getNeighbors() ){
+            if (neighbor.getNeighborNode().equals(endNode)){
+                prevList.add(neighbor);
+                return prevList;
             }
-            if (itrName.equals(end)){
-                endNode = itrNode;
-                foundEnd = true;
+            if (!visitedList.contains(neighbor.getNeighborNode())){
+                visitedList.add(neighbor.getNeighborNode());
+
+                List<Neighbor> newList = new ArrayList<>(prevList);
+
+                //Might produce error here
+                newList.add(neighbor);
+                List<Neighbor> returnList = DFSHelper(newList, visitedList, neighbor.getNeighborNode(), endNode);
+                if (returnList!=null){
+                    return returnList;
+                }
             }
         }
         return null;
+
     }
-
-
 
 
     /**
@@ -209,12 +225,7 @@ public class SpyGraph implements Iterable<GraphNode> {
                 if (returnList!=null){
                     return returnList;
                 }
-
-
-
-
             }
-            //return null;
         }
         return null;
     }

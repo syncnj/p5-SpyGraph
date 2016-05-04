@@ -56,6 +56,7 @@ public class Player {
                 System.out.print("Dropped a Spy Cam at " + this.getLocationName()+"\n");
                 return true;
             }
+            System.out.println("Already a Spy Cam there");
             return false;
         }
 

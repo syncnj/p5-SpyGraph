@@ -68,7 +68,6 @@ public class SpyGraph implements Iterable<GraphNode> {
         }
         GraphNode newNode = new GraphNode(name);
         vlist.add(newNode);
-        //Collections.sort(vlist);
     }
 
     /**
@@ -132,8 +131,12 @@ public class SpyGraph implements Iterable<GraphNode> {
         if (start == null || end == null) {
             throw new IllegalArgumentException("Null input");
         }
+
+        //Create the queue for nodes
         Queue<GraphNode> nodeQueue = new LinkedList<>();
+        //Queue to store the path to the corresponding GraphNode
         Queue<List<Neighbor>> neighborQueue = new LinkedList<>();
+
         List<GraphNode> visitedList = new ArrayList<>();
 
 
@@ -146,9 +149,17 @@ public class SpyGraph implements Iterable<GraphNode> {
         visitedList.add(startNode);
         nodeQueue.add(startNode);
         neighborQueue.add(new ArrayList<>());
-       return BFSHelper( nodeQueue, neighborQueue,  visitedList,  endNode);
+        return BFSHelper( nodeQueue, neighborQueue,  visitedList,  endNode);
    }
-
+    /**
+     * The recursive companion method for performing BFS.
+     *
+     * @param nodeQueue Current GraphNode to handle
+     * @param neighborQueue the neighbor queue with corresponding path
+     * @param visitedList store the visited list
+     * @param endNode the destination node to find
+     * @return the List with correct path, or Null if can't find a path
+     */
     private List<Neighbor> BFSHelper ( Queue<GraphNode> nodeQueue,Queue<List<Neighbor>> neighborQueue,
                                       List<GraphNode> visitedList,
                                       GraphNode endNode ){
@@ -208,26 +219,8 @@ public class SpyGraph implements Iterable<GraphNode> {
         if (start == null || end == null) {
             throw new IllegalArgumentException("Null input");
         }
-        //List<Neighbor> returnList = new ArrayList<>();
-        //Queue<Neighbor> queue = new LinkedList<>();
         List<GraphNode> visitedList = new ArrayList<>();
 
-/*        Iterator<GraphNode> itr = this.iterator();
-        Boolean foundStart= false;
-        Boolean foundEnd = false;
-
-        while(itr.hasNext() && (!foundStart || !foundEnd)){
-            GraphNode itrNode  = itr.next();
-            String itrName = itrNode.getNodeName();
-            if (itrName.equals(start)){
-                startNode = itrNode;
-                foundStart = true;
-            }
-            if (itrName.equals(end)){
-                endNode = itrNode;
-                foundEnd = true;
-            }
-        }*/
         GraphNode startNode= this.getNodeFromName(start);
         GraphNode endNode = this.getNodeFromName(end);
 
@@ -240,6 +233,14 @@ public class SpyGraph implements Iterable<GraphNode> {
 
     }
 
+    /**
+     * Companion method for DFS traverse using recursive
+     * @param prevList the path from start point to currNode
+     * @param visitedList all the nodes that have already been visited
+     * @param currNode current Node to handle
+     * @param endNode the destination node
+     * @return The list from start node to end node
+     */
     private List<Neighbor> DFSHelper (List<Neighbor> prevList, List<GraphNode> visitedList,
                                       GraphNode currNode, GraphNode endNode ){
         for(Neighbor neighbor: currNode.getNeighbors() ){
@@ -278,6 +279,7 @@ public class SpyGraph implements Iterable<GraphNode> {
 
         // TODO: implement Dijkstra's shortest path algorithm
         // may need and create a companion method
+        // Return BFS traversal to prevent from Null Pointer
         return this.BFS(start, end);
     }
 

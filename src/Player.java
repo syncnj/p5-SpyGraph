@@ -45,7 +45,7 @@ public class Player {
      */
     public boolean dropSpycam(){
         if (this.spycams == 0){
-            System.out.print("Not enough spycams");
+            System.out.println("Not enough spycams");
             return false;
         }
         else{

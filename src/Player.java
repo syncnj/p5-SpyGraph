@@ -68,7 +68,7 @@ public class Player {
         if (node.getSpycam()){
             node.setSpycam(false);
             spyCamDrop.remove(node);
-            this.spycams++;  //should it be here? The other get spycams back is never called!!!!!!!
+            this.getSpycamBack(true);  //should it be here? The other get spycams back is never called!!!!!!!
             return true;
 
             // !!!!!!!!!!!

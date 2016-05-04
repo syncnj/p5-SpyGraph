@@ -102,7 +102,6 @@ public class GraphNode implements Comparable<GraphNode>{
         this.neighborList.add(newNeighbor);
         Collections.sort(this.neighborList);
 
-        //Not sure if this is the correct way to sort!
     }
 
     /**

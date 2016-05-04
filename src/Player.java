@@ -44,7 +44,13 @@ public class Player {
     private GraphNode currentNode;
     private List<GraphNode> spyCamDrop = new ArrayList<>();
 
-
+    /**
+     * Constructor for player
+     * @param name name of the player
+     * @param budget budget allowed
+     * @param spycams how many spycams available
+     * @param startnode start node of the player
+     */
    public Player(String name, int budget, int spycams, GraphNode startnode){
        if (name == null || startnode == null || budget <0 || spycams <0){
            throw new IllegalArgumentException();
@@ -57,15 +63,26 @@ public class Player {
 
    }
 
-
+    /**
+     *
+     * @return name of player
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     *
+     * @return remaining budget
+     */
     public int getBudget(){
         return this.budget;
     }
 
+    /**
+     *
+     * @param decrease budget
+     */
     public void decreaseBudget(int dec){
             this.budget -= dec;
     }
@@ -93,6 +110,12 @@ public class Player {
 
     }
 
+    /**
+     * Check the node to see if there is a spy cam. If there is a spy cam at that node,
+     * remove the spy cam from that node. Also, remove the spy cam name from the Player's list of spy cam names. Otherwise, return false.
+     * @param node The node the player asked to remove a spy cam from.
+     * @return true if a spycam is retrieved
+     */
     public boolean pickupSpycam(GraphNode node){
         if (node == null){
             throw new IllegalArgumentException("node can't be null");
@@ -103,15 +126,25 @@ public class Player {
             this.getSpycamBack(true);  //should it be here? The other get spycams back is never called!!!!!!!
             return true;
 
-            // !!!!!!!!!!!
         }
         return false;
     }
 
+    /**
+     *
+     * @return number of spycams remaining
+
+     */
     public int getSpycams(){
         return this.spycams;
     }
 
+    /**
+     *
+     * @param name Neighboring node to move to
+     * @return true if the player successfully moves to this node if the cost is greater than 1, decrement budget by that amount
+
+     */
     public boolean move(String name) {
         if (name == null) {
             throw new IllegalArgumentException("name is null");
@@ -140,16 +173,30 @@ public class Player {
         return false;
     }
 
+    /**
+     *
+     * @return node label for the current location of the player
+
+     */
     public String getLocationName(){
         return this.currentNode.getNodeName();
     }
 
 
+    /**
+     * Returns the node where the player is currently located.
+     * @return player's current node
+
+     */
     public GraphNode getLocation(){
         return this.currentNode;
 
     }
 
+    /**
+     * If pickupSpyCam is true, increment the number of spy cams remaining.
+     * @param pickupSpyCam true if a spy cam was picked up. False means there was no spy cam
+     */
     public void getSpycamBack(boolean pickupSpyCam){
         if (pickupSpyCam ){
             this.spycams++;
@@ -157,9 +204,9 @@ public class Player {
     }
 
 
-
-
-
+    /**
+     * Display the names of the locations where Spy Cams were dropped (and are still there).
+     */
     public void printSpyCamLocations(){
         for (GraphNode currentNode: this.spyCamDrop){
             System.out.println ("Spy cam at "+ currentNode.getNodeName());

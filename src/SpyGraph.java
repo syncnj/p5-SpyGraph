@@ -1,4 +1,31 @@
-
+///////////////////////////////////////////////////////////////////////////////
+//                   ALL STUDENTS COMPLETE THESE SECTIONS
+// Main Class File:  Game.java
+// Files:            SpyGraph.java
+// Semester:         CS367 Spring 2016
+//
+// Author:           Yi Shen
+// Email:            yshen59@wisc.edu
+// CS Login:         sheny
+// Lecturer's Name:  James Skrentny
+// Lab Section:      N/A
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ////////////////////
+//
+// Pair Partner:     Yuchen Gu
+// Email:            ygu48@wisc.edu
+// CS Login:         yuchen
+// Lecturer's Name:  James Skrentny
+// Lab Section:      N/A
+//
+//////////////////// STUDENTS WHO GET HELP FROM OTHER THAN THEIR PARTNER //////
+//                   must fully acknowledge and credit those sources of help.
+//                   Instructors and TAs do not have to be credited here,
+//                   but tutors, roommates, relatives, strangers, etc do.
+//
+// Persons:          Yifei Feng
+//
+//////////////////////////// 80 columns wide //////////////////////////////////
 
 
 
@@ -20,7 +47,6 @@ public class SpyGraph implements Iterable<GraphNode> {
      * Initializes an empty list of GraphNode objects
      */
     public SpyGraph(){
-        // TODO initialize data member(s)
         vlist = new ArrayList<>();
     }
 
@@ -30,7 +56,6 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @param name The name of the new GraphNode to create and add to the list.
      */
     public void addGraphNode(String name){
-        // TODO implement this method
         if (name == null){
             throw new IllegalArgumentException("name is null");
         }
@@ -56,7 +81,6 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @throws IllegalArgumentException if the names are the same
      */
     public void addEdge(String v1name, String v2name, int cost) throws IllegalArgumentException{
-        // TODO implement this method
         if (v1name==null || v2name== null || v1name.equals(v2name)){
             throw new IllegalArgumentException();
         }
@@ -104,12 +128,10 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @return The BFS traversal from start to end node.
      */
     public List<Neighbor> BFS( String start, String end ) {
-        // TODO implement this method
         // may need and create a companion method
         if (start == null || end == null) {
             throw new IllegalArgumentException("Null input");
         }
-        //List<Neighbor> returnList = new ArrayList<>();
         Queue<GraphNode> nodeQueue = new LinkedList<>();
         Queue<List<Neighbor>> neighborQueue = new LinkedList<>();
         List<GraphNode> visitedList = new ArrayList<>();
@@ -121,7 +143,6 @@ public class SpyGraph implements Iterable<GraphNode> {
         if (startNode== null || endNode==null){
             throw new IllegalArgumentException("start / end node couldn't be found");
         }
-        //List<Neighbor> prevList = new ArrayList<>();
         visitedList.add(startNode);
         nodeQueue.add(startNode);
         neighborQueue.add(new ArrayList<>());
@@ -183,7 +204,6 @@ public class SpyGraph implements Iterable<GraphNode> {
      * @return The DFS traversal from start to end node.
      */
     public List<Neighbor> DFS(String start, String end) {
-        // TODO implement this method
         // may need and create a companion method
         if (start == null || end == null) {
             throw new IllegalArgumentException("Null input");

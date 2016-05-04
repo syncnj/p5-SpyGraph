@@ -1,3 +1,34 @@
+///////////////////////////////////////////////////////////////////////////////
+//                   ALL STUDENTS COMPLETE THESE SECTIONS
+// Main Class File:  Game.java
+// Files:            Player.java
+// Semester:         CS367 Spring 2016
+//
+// Author:           Yi Shen
+// Email:            yshen59@wisc.edu
+// CS Login:         sheny
+// Lecturer's Name:  James Skrentny
+// Lab Section:      N/A
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ////////////////////
+//
+// Pair Partner:     Yuchen Gu
+// Email:            ygu48@wisc.edu
+// CS Login:         yuchen
+// Lecturer's Name:  James Skrentny
+// Lab Section:      N/A
+//
+//////////////////// STUDENTS WHO GET HELP FROM OTHER THAN THEIR PARTNER //////
+//                   must fully acknowledge and credit those sources of help.
+//                   Instructors and TAs do not have to be credited here,
+//                   but tutors, roommates, relatives, strangers, etc do.
+//
+// Persons:          Yifei Feng
+//
+//////////////////////////// 80 columns wide //////////////////////////////////
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
